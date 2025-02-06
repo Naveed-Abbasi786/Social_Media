@@ -4,75 +4,12 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import ReactModal from "react-modal";
-import StoryPic1 from "../../assets/img/Story1.png";
-import StoryPic2 from "../../assets/img/Story2.png";
-import StoryPic3 from "../../assets/img/Story3.png";
-import StoryPic4 from "../../assets/img/Story4.png";
-import StoryPic5 from "../../assets/img/Story5.png";
-import StoryVedio1 from "../../assets/img/StoryVedio1.mp4";
-import StoryVedio2 from "../../assets/img/StoryVedio2.mp4";
-import Avatar from "../../assets/img/Avatar.jpg";
+
 import "swiper/swiper-bundle.css";
+import { stories } from "../../constant/data";
 
 // Stories data
-const stories = [
-  {
-    id: 1,
-    name: "Felix Deo",
-    authorImage: Avatar,
-    type: "image",
-    src: StoryPic1,
-  },
-  // {
-  //   id: 2,
-  //   name: "Jenny Wilson",
-  //   authorImage: Avatar,
-  //   type: "video",
-  //   src: StoryVedio1,
-  // },
-  {
-    id: 3,
-    name: "Freya Davies",
-    authorImage: "https://via.placeholder.com/50/ff7b7b/fff?text=F",
-    type: "image",
-    src: StoryPic3,
-  },
-  {
-    id: 4,
-    name: "Robert Fox",
-    authorImage: Avatar,
-    type: "image",
-    src: StoryPic4,
-  },
-  {
-    id: 5,
-    name: "Leslie Alexander",
-    authorImage: "https://via.placeholder.com/50/ffbb7b/fff?text=L",
-    type: "image",
-    src: StoryPic5,
-  },
-  {
-    id: 6,
-    name: "Felix Deo",
-    authorImage: Avatar,
-    type: "image",
-    src: StoryPic1,
-  },
-  {
-    id: 6,
-    name: "Freya Davies",
-    authorImage: "https://via.placeholder.com/50/ff7b7b/fff?text=F",
-    type: "image",
-    src: StoryPic3,
-  },
-  // {
-  //   id: 6,
-  //   name: "Alexander Leslie",
-  //   authorImage: "https://via.placeholder.com/50/ffbb7b/fff?text=L",
-  //   type: "vedio",
-  //   src: StoryVedio2,
-  // },
-];
+
 
 export default function Stories() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -130,7 +67,7 @@ export default function Stories() {
         {stories.map((story, index) => (
           <SwiperSlide
             key={story.id}
-            className="flex  justify-center items-center"
+            className="flex cursor-pointer  justify-center items-center"
           >
             <div className="" onClick={() => openModal(story)}>
               <img

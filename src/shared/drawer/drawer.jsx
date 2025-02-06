@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import Logo from "../../assets/img/logo.png";
 import Avatar from "../../assets/img/Avatar.jpg";
 import "../../App.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleDrawer, openDrawer, closeDrawer } from "../../store/slices/drawerSlice";
 import { nav } from "../../constant/data";
@@ -14,6 +14,8 @@ const Drawer = () => {
   // const toggleDrawer = () => {
   //   setIsOpen(!isOpen);
   // };
+
+  const navigate=useNavigate()
 
   const location = useLocation();
 
@@ -50,26 +52,27 @@ const Drawer = () => {
           {isOpen ? (
             <>
               {/* Logo and Title */}
-              <div className="flex -mt-1 items-center gap-3 pb-2">
+              <div                     onClick={()=>navigate('/')} className="flex -mt-1  items-center gap-3 pb-2">
                 <img
                   src={Logo}
                   alt="Logo"
-                  className="h-[2.2em]  object-cover w-auto"
+                  className="h-[2.2em]  cursor-pointer object-cover w-auto"
                 />
-                <h1 className="text-[#07142e] text-[28px] font-sans font-semibold">
+                <h1 className="text-[#07142e] cursor-pointer text-[28px] font-sans font-semibold">
                   SocialV
                 </h1>
               </div>
               <hr className="bg-gray-50 !w-[17.5vw] !overflow-hidden -ml-4 -mt-[17px]" />
 
               {/* Profile Image and Name */}
-              <div className="flex items-center border-b pb-6 mt-2 space-x-3">
+              <div  onClick={()=>navigate('/profile')} className="flex cursor-pointer items-center border-b pb-6 mt-2 space-x-3">
                 <img
                   src={Avatar}
                   alt="Profile"
                   className="w-12 h-12 rounded-full"
                 />
-                <div>
+                <div     className="cursor-pointer"                onClick={()=>navigate('/profile')}
+                >
                   <p className="font-semibold text-[#07142e] text-[16px]">
                     Marvin McKinney
                   </p>
@@ -126,10 +129,12 @@ const Drawer = () => {
             <>
               <div className="w-full  flex flex-col  items-center space-y-4">
                 <div className="w-8 h-12">
+                  
                   <img
                     src={Logo}
                     alt=""
                     className="w-full h-full mt-2 object-contain"
+                    onClick={()=>navigate('/')}
                   />
                 </div>
                 <hr className="bg-gray-50 !mt-3 !w-[4.8vw] " />
@@ -146,39 +151,37 @@ const Drawer = () => {
 
                 {/* <hr className="bg-sky-950  !w-[4vw] -mt-3" /> */}
                 <h1 className="text-[#6f7f92] font-semibold !mt-6">Menu</h1>
-                <button className="p-2 hover:bg-[#2F65B9] !mt-3 rounded-md hover:text-white">
-                  <Icon
-                    icon="fluent:data-trending-32-regular"
-                    className="text-xl text-[#6f7f92]"
-                  />
-                </button>
-                <button className="p-2">
-                  <Icon
-                    icon="mynaui:users"
-                    className="text-xl text-[#6f7f92]"
-                  />
-                </button>
 
-                <div className="w-full p-6 flex flex-col justify-between items-center !mt-20 bg-[#F8F9FA] rounded-md gap-6">
-                  <button className="hover:bg-[#2F65B9] p-2 rounded-md">
-                    <Icon
-                      icon="fluent:data-trending-32-regular"
-                      className="text-xl text-[#6f7f92] hover:text-white"
+                
+                {nav.slice(0,2).map((nav,idx)=>(                  
+                <button className="p-2  hover:bg-[#2F65B9] !mt-3 rounded-md hover:text-white">
+                  <Link to='icon'>
+                  <Icon
+                    icon={nav.icon}
+                    className="text-xl text-[#6f7f92] hover:text-white"
                     />
-                  </button>
-                  <button className="hover:bg-[#2F65B9] p-2 rounded-md">
-                    <Icon
-                      icon="fluent:data-trending-32-regular"
-                      className="text-xl text-[#6f7f92] hover:text-white"
-                    />
-                  </button>
-                  <button className="hover:bg-[#2F65B9] p-2 rounded-md">
-                    <Icon
-                      icon="mynaui:users"
-                      className="text-xl text-[#6f7f92] hover:text-white"
-                    />
-                  </button>
+                    </Link>
+                </button>
+                ))}
+              
+
+                
+              <div className="w-full p-6 flex flex-col justify-between items-center !mt-20 bg-[#F8F9FA] rounded-md gap-6">
+                {nav.slice(2,5).map((nav,idx)=>(
+                 <button className="group p-2 rounded-md hover:bg-[#2F65B9]">
+                 <Icon
+                   icon={nav.icon}
+                   className="text-xl text-[#6f7f92] group-hover:text-white"
+                 />
+               </button>
+               
+                ))}
+                  
+                
+
+
                 </div>
+
               </div>
             </>
           )}

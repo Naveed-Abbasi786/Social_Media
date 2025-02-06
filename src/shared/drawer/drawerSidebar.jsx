@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SimpleBar from "simplebar-react";
-import "simplebar-react/dist/simplebar.min.css"; // Import SimpleBar styles
+import "simplebar-react/dist/simplebar.min.css";
 import { Icon } from "@iconify/react";
 import Logo from "../../assets/img/logo.png";
 import "../../App.css";
@@ -156,38 +156,26 @@ export default function DrawerSidebar({ isDrawerOpen, handleDrawerClose }) {
                   </button>
                   <hr className="bg-sky-950  !w-[4vw] -mt-3" />
                   <h1 className="text-[#6f7f92] font-semibold !mt-6">Menu</h1>
-                  <button className="p-2 hover:bg-[#2F65B9] !mt-3 rounded-md hover:text-white">
-                    <Icon
-                      icon="fluent:data-trending-32-regular"
-                      className="text-xl text-[#6f7f92]"
-                    />
-                  </button>
-                  <button className="p-2">
-                    <Icon
-                      icon="mynaui:users"
-                      className="text-xl text-[#6f7f92]"
-                    />
-                  </button>
+                  {nav.slice(0, 2).map((nav, idx) => (
+                    <button className="p-2  hover:bg-[#2F65B9] !mt-3 rounded-md hover:text-white">
+                      <Link to="icon">
+                        <Icon
+                          icon={nav.icon}
+                          className="text-xl text-[#6f7f92] hover:text-white"
+                        />
+                      </Link>
+                    </button>
+                  ))}
 
                   <div className="w-full p-6 flex flex-col justify-between items-center !mt-20 bg-[#F8F9FA] rounded-md gap-6">
-                    <button className="hover:bg-[#2F65B9] p-2 rounded-md">
-                      <Icon
-                        icon="fluent:data-trending-32-regular"
-                        className="text-xl text-[#6f7f92] hover:text-white"
-                      />
-                    </button>
-                    <button className="hover:bg-[#2F65B9] p-2 rounded-md">
-                      <Icon
-                        icon="fluent:data-trending-32-regular"
-                        className="text-xl text-[#6f7f92] hover:text-white"
-                      />
-                    </button>
-                    <button className="hover:bg-[#2F65B9] p-2 rounded-md">
-                      <Icon
-                        icon="mynaui:users"
-                        className="text-xl text-[#6f7f92] hover:text-white"
-                      />
-                    </button>
+                    {nav.slice(2, 5).map((nav, idx) => (
+                      <button className="group p-2 rounded-md hover:bg-[#2F65B9]">
+                        <Icon
+                          icon={nav.icon}
+                          className="text-xl text-[#6f7f92] group-hover:text-white"
+                        />
+                      </button>
+                    ))}
                   </div>
                 </div>
               )}

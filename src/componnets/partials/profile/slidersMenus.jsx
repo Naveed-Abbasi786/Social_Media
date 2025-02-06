@@ -1,12 +1,14 @@
 import React, { useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
 import { Icon } from "@iconify/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Autoplay, Navigation } from "swiper/modules";
+import { icons } from "../../../constant/data";
 
-export default function SlideLogos() {
-  const icons=[
-    {name:"",icon:'fontisto:date'}
-  ]
+export default function SlidesMenus() {
+
+
   const swiperRef = useRef(null);
 
   const handlePrev = () => {
@@ -18,28 +20,34 @@ export default function SlideLogos() {
   };
 
   return (
-    <div className="w-full lg:flex hidden justify-center items-center  h-[20vh] mt-5 relative">
-      <div className="w-[80%] flex justify-center">
-        <Swiper
-          ref={swiperRef}
-          modules={[Autoplay]}
-          spaceBetween={20}
-          slidesPerView={6}
-          loop={true}
-          autoplay={{
-            disableOnInteraction: false,
-          }}
-        >
-          {icon.map((logo, index) => (
-            <SwiperSlide
-              key={index}
-              className="flex justify-center items-center"
-            >
-              <Icon src={logo} alt={`Logo ${index + 1}`} className="h-16" />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+    <div className="w-full flex justify-center items-center h-[20vh]  mt-5  relative">
+      <Swiper
+       ref={swiperRef}
+       modules={[Autoplay]}
+       spaceBetween={2}
+       slidesPerView={6}
+       loop={true}
+       autoplay={{
+         disableOnInteraction: false,
+       }}
+        // spaceBetween={2}
+        // slidesPerView={6}
+        // navigation
+        // modules={[Navigation]}
+        className="w-[95%]"
+      >
+        {icons.map((val, index) => (
+          <SwiperSlide key={index}>
+            <div className="flex flex-col justify-center items-center p-10 bg-white  text-gray-600 rounded-sm">
+              <div className="p-4 bg-[#F8F9FA] rounded-md mb-2">
+              <Icon icon={val.icon} className="h-5 w-5  text-[#6f7f92]" />
+              </div>
+              <p className="text-sm font-medium text-[#6f7f92]">{val.name}</p>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
       <div className="absolute top-1/2 transform -translate-y-1/2 left-5 z-10">
         <button
           onClick={handlePrev}

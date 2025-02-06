@@ -1,74 +1,11 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
-import PostPic1 from "../../assets/img/Story1.png";
-import PostPic2 from "../../assets/img/Story2.png";
-import PostPic3 from "../../assets/img/Story3.png";
-import PostPic4 from "../../assets/img/Story4.png";
-import PostPic5 from "../../assets/img/Story5.png";
-import PostVedio1 from "../../assets/img/StoryVedio1.mp4";
-import PostVedio2 from "../../assets/img/StoryVedio2.mp4";
-import Avatar from "../../assets/img/Avatar.jpg";
+
 import ReactModal from "react-modal";
 import { Toaster, toast } from "react-hot-toast";
 import EmojiPicker from "emoji-picker-react";
+import { posts } from "../../constant/data";
 // Dummy data for multiple posts
-const posts = [
-  {
-    _id: 1,
-    author: {
-      name: "John Doe",
-      profileImage: Avatar,
-      headline: "Photographer | Nature Lover",
-    },
-    group: {
-      profileImage: "https://via.placeholder.com/50",
-      name: "Photographer Nature Lover",
-    },
-    postTime: "2 hours ago",
-    content: {
-      text: "A beautiful day to explore nature! 🌿🌄",
-      type: "image", // single image post
-      media: [PostPic1],
-    },
-    likes: 120,
-    comments: 34,
-    shares: 12,
-  },
-  {
-    _id: 2,
-    author: {
-      name: "Jane Doe",
-      profileImage: Avatar,
-      headline: "Videographer | Adventurer",
-    },
-    postTime: "1 hour ago",
-    content: {
-      text: "Enjoying the beauty of the mountains! 🎥🏞️",
-      type: "video", // video post
-      media: [PostVedio1],
-    },
-    likes: 150,
-    comments: 45,
-    shares: 8,
-  },
-  {
-    _id: 3,
-    author: {
-      name: "John Doe",
-      profileImage: "https://via.placeholder.com/50",
-      headline: "Photographer | Nature Lover",
-    },
-    postTime: "3 hours ago",
-    content: {
-      text: "Nature's beauty captured in these shots! 📸🌿",
-      type: "collage", // multiple images post
-      media: [PostPic3, PostPic4, PostPic5],
-    },
-    likes: 200,
-    comments: 60,
-    shares: 20,
-  },
-];
 
 export default function Post() {
   const [showCommentsSection, setShowCommentSection] = useState(false);
