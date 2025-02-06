@@ -24,3 +24,17 @@
   @keyframes l15{ 
     100%{transform: rotate(1turn)}
   }
+  /* styles.css or tailwind setup */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.light {
+  background-color: #ffffff !important;
+  color: #000000;
+}
+
+body.dark {
+  background-color: #333333 !important;
+  color: #ffffff;
+}

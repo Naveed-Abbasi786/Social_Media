@@ -4,6 +4,9 @@ import { Icon } from "@iconify/react";
 import User from "../../assets/img/Avatar.jpg";
 import { Link } from "react-router-dom";
 import DrawerSidebar from "../drawer/drawerSidebar";
+import { useDispatch, useSelector } from "react-redux";
+import "../../App.css";
+import { toggleTheme } from "../../store/slices/themeSlice";
 export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isShopDropdownOpen, setIsShopDropdownOpen] = useState(false);
@@ -14,6 +17,13 @@ export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+
+  const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.theme.darkMode);
+
+  const handleThemeToggle = () => {
+    dispatch(toggleTheme());
+  };
 
   const hanldeDrawerClose = () => {
     setIsDrawerOpen(false);
@@ -127,13 +137,16 @@ export default function Navbar() {
   const AvatarClick = () => {
     setDropDownShow(!dropdownShow);
   };
+
   return (
     <nav className="w-full z-50">
       {/* Background Overlay */}
       {isSidebarOpen && (
         <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
       )}
-      <div className="w-full  h-fit p-2 lg:bg-[#FEFEFE] z-50 md: border-b flex items-center justify-between">
+      <div
+        className={`w-full  h-fit p-2 bg-[#FEFEFE] z-50 md:border-b flex items-center justify-between`}
+      >
         <div className="w-[50%] flex items-center">
           <div className="lg:hidden flex" onClick={hanldeDrawerOpen}>
             <Icon
@@ -156,7 +169,7 @@ export default function Navbar() {
             isDrawerOpen={isDrawerOpen}
             handleDrawerClose={hanldeDrawerClose}
           />
-          <div className=" w-[100%] ml-12 lg:flex hidden">
+          <div className={` w-[100%] ml-12  lg:flex hidden `}>
             <ul className="flex gap-4">
               <li className="text-[#2f65b9] font-semibold font-sans text-[16px] cursor-pointer karta">
                 HOME
@@ -264,8 +277,14 @@ export default function Navbar() {
             </ul>
           </div>
         </div>
-        <div className="flex lg:hidden  items-center gap-4 mr-4">
-          <Icon icon="uil:brightness" className="text-[22px] text-[#6f7f92]" />
+        <div
+          onClick={handleThemeToggle}
+          className="flex lg:hidden  items-center gap-4 mr-4"
+        >
+          <Icon
+            icon={`${darkMode ? "mi:moon" : "uil:brightness"}`}
+            className="text-[22px] text-[#6f7f92]"
+          />
           <Icon
             icon="bitcoin-icons:menu-outline"
             onClick={toggleSidebar}
@@ -330,7 +349,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="w-full p-1 lg:hidden   flex justify-around items-center gap-4">
+      <div className="w-full p-1 lg:hidden bg-[#FEFEFE]  flex justify-around items-center gap-4">
         <Icon
           icon="iconamoon:search-light"
           className="text-[17px] text-[#6f7f92]"

@@ -1,7 +1,7 @@
-import React from 'react'
-import Stories from './Stories'
-import Posts from './Posts'
-import Actvies from '../../componnets/Actvies'
+import React from "react";
+import Stories from "./Stories";
+import Posts from "./Posts";
+import Actvies from "../../shared/Actvies";
 
 export default function index() {
   return (
@@ -13,9 +13,9 @@ export default function index() {
         <div className="lg:w-[70%]   w-full">
           <Posts />
         </div>
-     <div className="w-[30%] p-4 lg:flex hidden">
-              <Actvies  />
-            </div>
+        <div className="w-[30%] p-4 lg:flex hidden">
+          <Actvies />
+        </div>
       </div>
     </div>
   );

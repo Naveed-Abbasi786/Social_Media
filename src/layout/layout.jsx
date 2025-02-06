@@ -4,59 +4,45 @@ import Drawer from "../shared/drawer/drawer";
 import { Outlet } from "react-router-dom";
 import Loading from "../componnets/loading";
 import Footer from "../componnets/Footer";
+import { useSelector } from "react-redux";
 
 export default function Layout() {
+  const isOpen = useSelector((state) => state.drawer.isOpen);
   return (
-  
-    // <div className="flex flex-col min-h-screen w-full">
-    //   {/* Navbar */}
-    //   <div className=" pl-[230px] w-full z-50 ">
-    //     <Navbar />
-    //   </div>
-
-    //   {/* Sidebar Drawer */}
-    //   <div className="hidden lg:block z-50">
-    //     <Drawer />
-    //   </div>
-
-    //   {/* Main Content Area */}
-    //   <div className="flex bg-[#F7F8F9] w-[81%] overflow-hidden flex-col  ml-auto">
-    //     <Suspense fallback={<Loading />}>
-    //       <Outlet />
-    //     </Suspense>
-    //     <div className="mt-12">
-    //     <Footer  />
-    //     </div>
-    //   </div>
-
-    //   {/* Footer */}
-    // </div>
-
-
-    <div className="flex flex-col min-h-screen w-full">
+    <div className="flex bg-[#F7F8F9] flex-col min-h-screen w-full">
       {/* Navbar */}
-      <div className="lg:pl-[230px] w-full z-50 ">
+      <div
+        className={` fixed top-0 left-0 ${
+          isOpen ? "lg:pl-[230px]" : "lg:pl-[60px]"
+        } w-full z-50 `}
+      >
         <Navbar />
       </div>
 
       {/* Sidebar Drawer */}
-      <div className="hidden lg:block fixed top-0 left-0 z-50">
+      <div
+        className={`hidden z-50 ${
+          isOpen ? "w-[7%]" : "w-[3%]"
+        }   lg:block fixed`}
+      >
         <Drawer />
       </div>
 
       {/* Main Content Area */}
-      <div className="flex bg-[#F7F8F9] lg:w-[81%] w-full overflow-hidden flex-col  ml-auto">
+      <div
+        className={`flex bg-[#F7F8F9]  lg:mt-12 mt-24  :w-auto ${
+          isOpen ? "lg:ml-[240px]" : "lg:ml-[60px]"
+        }  overflow-hidden flex-col `}
+      >
         <Suspense fallback={<Loading />}>
           <Outlet />
         </Suspense>
         <div className="mt-12">
-        <Footer  />
+          <Footer />
         </div>
       </div>
 
       {/* Footer */}
     </div>
-
-    
   );
 }

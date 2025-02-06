@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import Logo from "../../assets/img/logo.png";
 import "../../App.css";
 import { Link, useLocation } from "react-router-dom";
+import { nav } from "../../constant/data";
 export default function DrawerSidebar({ isDrawerOpen, handleDrawerClose }) {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -13,34 +14,7 @@ export default function DrawerSidebar({ isDrawerOpen, handleDrawerClose }) {
   };
 
   const location = useLocation();
-  const nav = [
-    {
-      name: "Activty",
-      icon: "fluent:data-trending-32-regular",
-      link: "/",
-    },
-    {
-      name: "Members",
-      icon: "mynaui:users",
-      link: "/members",
-    },
-    {
-      name: "Groups",
-      icon: "ph:users-four-thin",
-      link: "/member",
-    },
-    {
-      name: "Badges",
-      icon: "uil:comment-alt-verify",
-      link: "/activty",
-    },
-    {
-      name: "Message",
-      icon: "material-symbols:sms-outline-sharp",
-      link: "/activty",
-    },
-    { name: "Shop", icon: "solar:bag-outline", link: "/activty" },
-  ];
+
   return (
     <div
       className={`fixed inset-0 z-50 ${

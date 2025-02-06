@@ -10,7 +10,7 @@ export default function index() {
         <div className="absolute inset-0 flex items-center">
           <div className="bg-opacity-80 p-6 rounded-lg shadow-lg text-start">
             <h1 className="text-[40px] leading-[52px] text-white font-semibold">
-              Member Directory
+              Group Directory
             </h1>
             <p className="text-white text-[16px] mb-4 font-sans font-medium">
               Good Communication is the key to cop-up with good ideas
@@ -20,6 +20,7 @@ export default function index() {
       </div>
       <div className="w-full h-fit flex">
         <div className="lg:w-[70%] mt-3 w-full">
+          
           <Tabs />
         </div>
         <div className="w-[30%] p-4 lg:flex hidden">
