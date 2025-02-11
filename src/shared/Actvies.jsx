@@ -3,7 +3,10 @@ import Avatar from "../assets/img/Avatar.jpg";
 import VerifyImg from "../assets/img/verify.png";
 import Logo from "../assets/img/logo-white.png";
 import LeftBanner from "../assets/img/left-banner.webp";
+import { useSelector } from "react-redux";
 export default function Activities() {
+  const isDarkMode = useSelector((state) => state.theme.darkMode);
+
   const activitiesData = [
     {
       _id: 1,
@@ -33,9 +36,11 @@ export default function Activities() {
 
   return (
     <div className="w-full h-fit">
-      <div className="w-90%] max-w-4xl bg-white rounded-lg shadow-md">
+      <div className={`w-90%] max-w-4xl  ${isDarkMode ? "bg-[#080D1E]" : "bg-[#F7F8F9]"
+          } rounded-lg shadow-md`}>
         {/* Header */}
-        <h1 className="text-[#07142e] px-6 pt-6 text-[21px] font-semibold">
+        <h1 className={` ${isDarkMode ? 'text-white' :'text-[#07142e] '} px-6 pt-6 text-[21px] font-semibold`}>
+
           Latest Activities
         </h1>
         <hr className="bg-sky-950 mt-2 mb-4 w-[20%] ml-6 border-0 h-[2px]" />
@@ -44,7 +49,10 @@ export default function Activities() {
         {activitiesData.map((val) => (
           <div
             key={val._id}
-            className="w-full ml-5 py-4 flex items-start border-b border-gray-200 last:border-b-0"
+            className={`w-full ml-5 py-4 flex items-start border-b  ${ isDarkMode
+                  ? "border-[#101421]"
+                  : "border-[#F1F1F1]"
+              } last:border-b-0`}
           >
             {/* Profile Image */}
             <div>

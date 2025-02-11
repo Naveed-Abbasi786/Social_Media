@@ -1,13 +1,16 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
-
+import WhatsApp from "../../assets/img/whatsapp.png";
 import ReactModal from "react-modal";
 import { Toaster, toast } from "react-hot-toast";
 import EmojiPicker from "emoji-picker-react";
 import { posts } from "../../constant/data";
+import { useSelector } from "react-redux";
 // Dummy data for multiple posts
 
 export default function Post() {
+  const isDarkMode = useSelector((state) => state.theme.darkMode);
+
   const [showCommentsSection, setShowCommentSection] = useState(false);
   const [showReply, setShowReply] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,7 +22,7 @@ export default function Post() {
   const [isLikeLoading, setIsLikeLoading] = useState(false);
 
   const [likes, setLikes] = useState([
-    { username: "John", emoji: "❤️" }, // Example data
+    { username: "John", emoji: "❤️" },
     { username: "Sara", emoji: "👍" },
     { username: "Mike", emoji: "😂" },
     { username: "Anna", emoji: "😍" },
@@ -105,7 +108,9 @@ export default function Post() {
       {posts.map((post) => (
         <div
           key={post._id}
-          className="w-auto ml-2   lg:ml-8 mb-10 h-fit bg-white  shadow-md rounded-lg overflow-hidden mt-5"
+          className={`w-auto ml-2   lg:ml-8 mb-10 h-fit ${
+            isDarkMode ? "bg-[#080D1E]" : "bg-[#F7F8F9]"
+          } shadow-md rounded-lg overflow-hidden mt-5`}
         >
           {/* Post Header */}
           <div className="flex items-center justify-between px-4 py-3">
@@ -227,9 +232,14 @@ export default function Post() {
               <span className="font-semibold text-gray-700">2 Others</span>
             </div>
           </div>
+
           {showLikesModal === post._id && (
             <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
-              <div className="bg-white p-5 rounded-lg w-80">
+              <div
+                className={`${
+                  isDarkMode ? "bg-[#080D1E]" : "bg-[#F7F8F9]"
+                } p-5 rounded-lg w-8`}
+              >
                 <h2 className="text-xl font-semibold mb-4">Likes</h2>
                 <ul>
                   {likes.map((like, index) => (
@@ -247,13 +257,22 @@ export default function Post() {
               </div>
             </div>
           )}
+
           {/* Post Footer */}
-          <div className="border-t mt-3">
-            <div className="p-4 flex flex-wrap gap-4 lg:justify-between md:justify-between justify-center items-center py-2 bg-white border-t">
+          <div className={`mt-3 p-2`}>
+            <div
+              className={`p-4 flex flex-wrap gap-4 lg:justify-between md:justify-between justify-center items-center py-2 ${
+                isDarkMode
+                  ? "bg-[#080D1E] border-[#101421]"
+                  : "bg-[#F7F8F9] border-[#F1F1F1]"
+              } border-t`}
+            >
               {/* Like Button */}
               <button
                 onClick={() => hanldeLikeShow(post)}
-                className="flex items-center text-gray-600 hover:text-blue-500 text-sm sm:text-base"
+                className={`flex items-center text-gray-600 group  ${
+                  isDarkMode ? "hover:text-blue-200 " : "hover:text-blue-500 "
+                }  text-sm sm:text-base`}
               >
                 {selectedEmoji ? (
                   <span className="!border-none text-lg sm:text-xl">
@@ -262,7 +281,11 @@ export default function Post() {
                 ) : (
                   <Icon
                     icon="iconamoon:like-light"
-                    className="text-gray-700 text-[18px] sm:text-[22px]"
+                    className={`text-gray-700 ${
+                      isDarkMode
+                        ? "group-hover:text-blue-200 "
+                        : "group-hover:text-blue-500 "
+                    }  text-[18px] sm:text-[22px]`}
                   />
                 )}
                 <span className="ml-1">Like ({post.likes})</span>
@@ -270,12 +293,18 @@ export default function Post() {
 
               {/* Comment Button */}
               <button
-                className="flex items-center text-gray-600 hover:text-blue-500 text-sm sm:text-base"
+                className={`flex items-center group text-gray-600 ${
+                  isDarkMode ? "hover:text-blue-200 " : "hover:text-blue-500 "
+                } hover:text-blue-500 text-sm sm:text-base`}
                 onClick={() => handleComments(post)}
               >
                 <Icon
                   icon="arcticons:psms"
-                  className="text-gray-700 text-[16px] sm:text-[20px]"
+                  className={`text-gray-700  ${
+                    isDarkMode
+                      ? "group-hover:text-blue-200 "
+                      : "group-hover:text-blue-500 "
+                  } text-[16px] sm:text-[20px]`}
                 />
                 <span className="ml-1">Comment ({post.comments})</span>
               </button>
@@ -283,11 +312,17 @@ export default function Post() {
               {/* Share Button */}
               <button
                 onClick={() => hanldeShareShow(post)}
-                className="flex items-center text-gray-600 hover:text-blue-500 text-sm sm:text-base"
+                className={`flex items-center group text-gray-600 ${
+                  isDarkMode ? "hover:text-blue-200 " : "hover:text-blue-500 "
+                } hover:text-blue-500 text-sm sm:text-base`}
               >
                 <Icon
                   icon="mdi-light:share"
-                  className="text-gray-700 text-[18px] sm:text-[22px]"
+                  className={`  ${
+                    isDarkMode
+                      ? "group-hover:text-blue-200 "
+                      : "group-hover:text-blue-500 "
+                  } text-gray-700 text-[18px] sm:text-[22px]`}
                 />
                 <span className="ml-1">Share ({post.shares})</span>
               </button>
@@ -300,13 +335,21 @@ export default function Post() {
                   <>
                     <div className="py-2 px-10  flex w-full">
                       <img
-                        src="https://via.placeholder.com/50"
+                        src={post.author.profileImage}
                         alt=""
                         className="rounded-full w-10 h-10  px-[2px] py-[2px] "
                       />
-                      <div className="bg-[#EEF0F2] w-full p-1 ml-2 rounded-lg">
+                      <div
+                        className={`  ${
+                          isDarkMode ? "bg-[#091025]" : "bg-[#EEF0F2]"
+                        }  w-full p-1 ml-2 rounded-lg`}
+                      >
                         <div className="flex justify-between">
-                          <h1 className="font-semibold px-3 text-gray-900">
+                          <h1
+                            className={`font-semibold px-3 ${
+                              isDarkMode ? "text-white" : "text-gray-900"
+                            } `}
+                          >
                             Lori Ferguson
                           </h1>
                           <span className="text-gray-500 text-sm mr-2">
@@ -339,13 +382,21 @@ export default function Post() {
                   <>
                     <div className="p-2 ml-20  flex w-[370px]">
                       <img
-                        src="https://via.placeholder.com/50"
+                        src={post.group.profileImage}
                         alt=""
                         className="rounded-full w-10 h-10  px-[2px] py-[2px]"
                       />
-                      <div className="bg-[#EEF0F2] w-full p-[6px] rounded-lg ml-2">
+                      <div
+                        className={`${
+                          isDarkMode ? "bg-[#091025]" : "bg-[#EEF0F2]"
+                        } w-full p-[6px] rounded-lg ml-2`}
+                      >
                         <div className="flex justify-between">
-                          <h1 className="font-semibold px-3 text-gray-900">
+                          <h1
+                            className={`font-semibold px-3 ${
+                              isDarkMode ? "text-white" : "text-gray-900"
+                            }`}
+                          >
                             Lori Ferguson
                           </h1>
                           <span className="text-gray-500 text-sm mr-2">
@@ -378,24 +429,38 @@ export default function Post() {
                   {showReply && (
                     <div className="py-2 px-2 ml-24  flex w-[440px]">
                       <img
-                        src="https://via.placeholder.com/50"
+                        src={post.author.profileImage}
                         alt=""
                         className="rounded-full w-10 h-10  px-[2px] py-[2px] "
                       />
-                      <div className="bg-[#EEF0F2] w-full p-2 ml-2 rounded-lg">
+                      <div
+                        className={`${
+                          isDarkMode ? "bg-[#091025]" : "bg-[#EEF0F2]"
+                        }w-full p-2 ml-2 rounded-lg`}
+                      >
                         <div className="flex justify-between">
-                          <h1 className="font-semibold px-3 text-gray-900">
+                          <h1
+                            className={`font-semibold px-3  ${
+                              isDarkMode ? "text-white" : "text-gray-900"
+                            }`}
+                          >
                             Lori Ferguson
                           </h1>
                           <span className="text-gray-500 text-sm mr-2">
                             5 hours ago
                           </span>
                         </div>
-                        <div className="bg-[#EEF0F2] flex justify-between items-center w-full px-3 ml-2 focus:outline-none focus:border-sky-500 focus:ring-1 cursor-pointer">
+                        <div
+                          className={` ${
+                            isDarkMode ? "bg-[#091025]" : "bg-[#EEF0F2]"
+                          } flex justify-between items-center w-full px-3 ml-2 focus:outline-none focus:border-sky-500 focus:ring-1 cursor-pointer`}
+                        >
                           <input
                             type="text"
                             placeholder="Add a Reply"
-                            className="w-full rounded-lg bg-transparent border-none outline-none  py-2"
+                            className={`w-full rounded-lg bg-transparent border-none ${
+                              isDarkMode ? "text-gray-500" : "text-gray-900"
+                            } outline-none  py-2`}
                           />
                           <svg
                             className="text-gray-500"
@@ -417,15 +482,21 @@ export default function Post() {
                   {/* Add Comments */}
                   <div className="py-2 px-3 flex">
                     <img
-                      src="https://via.placeholder.com/50"
+                      src={post.author.profileImage}
                       alt=""
                       className="rounded-full w-10 h-10  px-[2px] py-[2px] "
                     />
-                    <div className="bg-[#EEF0F2] flex justify-between items-center w-full px-3 ml-2 focus:outline-none focus:border-sky-500 focus:ring-1 cursor-pointer">
+                    <div
+                      className={` ${
+                        isDarkMode ? "bg-[#091025]" : "bg-[#EEF0F2]"
+                      } flex justify-between items-center w-full px-3 ml-2 focus:outline-none focus:border-sky-500 focus:ring-1 cursor-pointer`}
+                    >
                       <input
                         type="text"
                         placeholder="Add a Comment"
-                        className="w-full rounded-lg bg-transparent border-none outline-none  py-2"
+                        className={`w-full rounded-lg bg-transparent ${
+                          isDarkMode ? "text-gray-500" : "text-gray-900"
+                        } border-none outline-none  py-2`}
                       />
                       <svg
                         className="text-gray-500"
@@ -449,22 +520,34 @@ export default function Post() {
               isOpen={isModalOpen}
               onRequestClose={closeModal}
               overlayClassName="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50"
-              className="bg-white rounded-lg w-full max-w-lg p-4 relative"
+              className={` ${
+                isDarkMode ? "bg-[#091025]" : "bg-[#EEF0F2]"
+              } rounded-lg w-full max-w-lg p-4 relative`}
             >
               <Toaster /> {/* Hot Toast Notifications */}
               {/* Close Button */}
               <button
                 onClick={closeModal}
-                className="absolute top-4 right-4 text-gray-700 rounded-full p-2 hover:bg-gray-200"
+                className="absolute top-4 right-4  text-gray-700 rounded-full p-2 hover:bg-gray-200"
               >
                 ✕
               </button>
               {/* Modal Content */}
               <div className="text-center">
-                <h2 className="text-xl font-bold mb-4">Share this Post</h2>
+                <h2
+                  className={`text-xl ${
+                    isDarkMode ? "text-gray-500" : "text-gray-900"
+                  } font-bold mb-4`}
+                >
+                  Share this Post
+                </h2>
 
                 {/* Video Link */}
-                <div className="flex items-center justify-between bg-gray-100 p-2 rounded-lg mb-4">
+                <div
+                  className={`flex items-center justify-between ${
+                    isDarkMode ? "bg-[#080D1E]" : "bg-gray-100"
+                  }  p-2 rounded-lg mb-4`}
+                >
                   <input
                     type="text"
                     value={videoLink}
@@ -483,7 +566,11 @@ export default function Post() {
                 <div className="flex justify-center gap-4">
                   <button
                     onClick={() => handleShare("facebook")}
-                    className="bg-gray-100 p-3 rounded-full hover:bg-gray-200"
+                    className={` ${
+                      isDarkMode
+                        ? "bg-[#080D1E] hover:bg-gray-900"
+                        : "bg-gray-100 hover:bg-gray-200"
+                    } p-3 rounded-full `}
                   >
                     <img
                       src="https://img.icons8.com/color/48/facebook-circled--v1.png"
@@ -493,7 +580,11 @@ export default function Post() {
                   </button>
                   <button
                     onClick={() => handleShare("twitter")}
-                    className="bg-gray-100 p-3 rounded-full hover:bg-gray-200"
+                    className={`p-3 rounded-full ${
+                      isDarkMode
+                        ? "bg-[#080D1E] hover:bg-gray-900"
+                        : "bg-gray-100 hover:bg-gray-200"
+                    }`}
                   >
                     <img
                       src="https://img.icons8.com/color/48/twitter-circled--v1.png"
@@ -503,7 +594,11 @@ export default function Post() {
                   </button>
                   <button
                     onClick={() => handleShare("linkedin")}
-                    className="bg-gray-100 p-3 rounded-full hover:bg-gray-200"
+                    className={`${
+                      isDarkMode
+                        ? "bg-[#080D1E] hover:bg-gray-900"
+                        : "bg-gray-100 hover:bg-gray-200"
+                    } p-3 rounded-full`}
                   >
                     <img
                       src="https://img.icons8.com/color/48/linkedin-circled.png"
@@ -513,13 +608,13 @@ export default function Post() {
                   </button>
                   <button
                     onClick={() => handleShare("whatsapp")}
-                    className="bg-gray-100 p-3 rounded-full hover:bg-gray-200"
+                    className={`${
+                      isDarkMode
+                        ? "bg-[#080D1E] hover:bg-gray-900"
+                        : "bg-gray-100 hover:bg-gray-200"
+                    } p-3 rounded-full `}
                   >
-                    <img
-                      src="https://img.icons8.com/color/48/whatsapp.png"
-                      alt="WhatsApp"
-                      className="w-12 h-12"
-                    />
+                    <img src={WhatsApp} alt="WhatsApp" className="w-12 h-12" />
                   </button>
                 </div>
               </div>

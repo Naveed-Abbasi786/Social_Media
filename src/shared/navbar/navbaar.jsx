@@ -21,7 +21,7 @@ export default function Navbar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const dispatch = useDispatch();
-  const darkMode = useSelector((state) => state.theme.darkMode);
+  const isDarkMode = useSelector((state) => state.theme.darkMode);
 
   const handleThemeToggle = () => {
     dispatch(toggleTheme());
@@ -39,8 +39,7 @@ export default function Navbar() {
   };
 
   const [dropdownShow, setDropDownShow] = useState(false);
- 
-  
+
   const openDropdown = (dropdownType) => {
     clearTimeout(timeoutId);
     if (dropdownType === "COMUNITY") {
@@ -85,7 +84,9 @@ export default function Navbar() {
         <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
       )}
       <div
-        className={`w-full  h-fit p-2 bg-[#FEFEFE] z-50 md:border-b flex items-center justify-between`}
+        className={`w-full  h-fit p-2  ${
+          isDarkMode ? "bg-[#080D1E] border-none" : "bg-[#FEFEFE] border-b "
+        } z-50   ${isDarkMode?'!border-gray-300 ' :'border-[#1111]'}  flex items-center justify-between`}
       >
         <div className="w-[50%] flex items-center">
           <div className="lg:hidden flex" onClick={hanldeDrawerOpen}>
@@ -100,7 +101,11 @@ export default function Navbar() {
               alt="Logo"
               className="py-1 max-w-[100%]: h-[2.5em]"
             />
-            <h1 className="text-[#07142e] text-[28px] font-semibold leading-[37.44px]">
+            <h1
+              className={`${
+                isDarkMode ? "text-white" : "text-[#07142e]"
+              }  text-[28px] font-semibold leading-[37.44px]`}
+            >
               SocialV
             </h1>
           </span>
@@ -110,10 +115,8 @@ export default function Navbar() {
             handleDrawerClose={hanldeDrawerClose}
           />
 
-
           <div className={` w-[100%] ml-12  lg:flex hidden `}>
             <ul className="flex gap-4">
-
               <li className="text-[#2f65b9] font-semibold font-sans text-[16px] cursor-pointer karta">
                 HOME
               </li>
@@ -219,12 +222,6 @@ export default function Navbar() {
               </li>
             </ul>
           </div>
-
-
-
-
-
-
         </div>
 
         {/* Md Display */}
@@ -233,7 +230,7 @@ export default function Navbar() {
           className="flex lg:hidden  items-center gap-4 mr-4"
         >
           <Icon
-            icon={`${darkMode ? "mi:moon" : "uil:brightness"}`}
+            icon={`${isDarkMode ? "mi:moon" : "uil:brightness"}`}
             className="text-[22px] text-[#6f7f92]"
           />
           <Icon
@@ -243,25 +240,29 @@ export default function Navbar() {
           />
         </div>
 
-
-{/* lg Display */}
+        {/* lg Display */}
         <div className="lg:flex  hidden lg:gap-6 items-center gap-4 lg:mr-10 mr-4">
+          {navbarBtnsIcon.map((nav, idx) => (
+            <div key={idx} className="relative">
+              <Icon
+                icon={
+                  idx === 0
+                    ? isDarkMode
+                      ? "mi:moon"
+                      : "uil:brightness"
+                    : nav.icon
+                }
+                onClick={idx === 0 ? handleThemeToggle : undefined}
+                className="text-[22px] text-[#6f7f92] cursor-pointer"
+              />
+              {nav?.quanity && (
+                <span className="bg-red-500 -top-[6px] left-[10px] rounded-full w-4 h-4 flex justify-center items-center text-[12px] text-white absolute">
+                  {nav.quanity}
+                </span>
+              )}
+            </div>
+          ))}
 
-         {navbarBtnsIcon.map((nav,idx)=>(
-          <div key={idx} className="relative">
-          <Icon
-            icon={nav.icon}
-            className="text-[22px] text-[#6f7f92]"
-          />
-          {nav?.quanity && (
-            <span className="bg-red-500 -top-[6px] left-[10px] rounded-full w-4 h-4 flex justify-center items-center text-[12px] text-white absolute ">
-            {nav?.quanity}
-            </span>
-          )}
-         </div>
-         ))}
-         
-        
           <div
             className="relative w-[45px] rounded-full cursor-pointer"
             onClick={AvatarClick}
@@ -274,43 +275,45 @@ export default function Navbar() {
             onClick={toggleSidebar}
             className="text-[45px] text-[#6f7f92]  lg:hidden  flex"
           />
-          {dropdownShow && (
-           <AvatarDropDown/>
-          )}
+          {dropdownShow && <AvatarDropDown />}
         </div>
-
-
-
       </div>
 
-{/* Md and Sm */}
-      <div className="w-full p-1 lg:hidden bg-[#FEFEFE]  flex justify-around items-center gap-4">
-      {navbarBtnsIcon.slice(1,6).map((nav,idx)=>(
-            <div key={idx} className="relative">
+      {/* Md and Sm */}
+      <div className={`w-full p-1 lg:hidden ${isDarkMode ? 'bg-[#080D1E]' : 'bg-[#FEFEFE]'}  flex justify-around items-center gap-4`}>
+        {navbarBtnsIcon.slice(1, 6).map((nav, idx) => (
+          <div key={idx} className="relative">
             <Icon
-              icon={nav.icon}
-              className="text-[22px] text-[#6f7f92]"
+              icon={
+                idx === 0
+                  ? isDarkMode
+                    ? "mi:moon"
+                    : "uil:brightness"
+                  : nav.icon
+              }
+              onClick={idx === 0 ? handleThemeToggle : undefined}
+              className="text-[22px] text-[#6f7f92] cursor-pointer"
             />
             {nav?.quanity && (
               <span className="bg-red-500 -top-[6px] left-[10px] rounded-full w-4 h-4 flex justify-center items-center text-[12px] text-white absolute ">
-              {nav?.quanity}
+                {nav?.quanity}
               </span>
             )}
-           </div>
-         ))}
+          </div>
+        ))}
 
         <div className="relative w-[30px] rounded-full" onClick={AvatarClick}>
           <img src={User} alt="" className="rounded-full" />
         </div>
 
-        {dropdownShow && (
-         <AvatarDropDown/>
-        )}
+        {dropdownShow && <AvatarDropDown />}
       </div>
 
-  <NavSideBar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} setIsSidebarOpen={setIsSidebarOpen}/>
-
-      
+      <NavSideBar
+        isSidebarOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
     </nav>
   );
 }

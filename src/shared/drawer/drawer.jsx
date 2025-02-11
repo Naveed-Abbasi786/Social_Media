@@ -11,6 +11,8 @@ const Drawer = () => {
   // const [isOpen, setIsOpen] = useState(true);
   const isOpen = useSelector((state) => state.drawer.isOpen);
   const dispatch = useDispatch();
+     const isDarkMode = useSelector((state) => state.theme.darkMode);
+  
   // const toggleDrawer = () => {
   //   setIsOpen(!isOpen);
   // };
@@ -44,7 +46,7 @@ const Drawer = () => {
 
         {/* Drawer */}
         <div
-          className={`h-[100vh] shadow-lg z-10 bg-white border-l transition-all duration-300 ease-in-out ${
+          className={`h-[100vh] shadow-lg z-10 ${isDarkMode ? 'bg-[#080D1E]':'bg-white'}  border-l transition-all duration-300 ease-in-out ${
             isOpen ? "w-60 p-4" : "w-16"
           } flex flex-col gap-4`}
         >
@@ -52,17 +54,17 @@ const Drawer = () => {
           {isOpen ? (
             <>
               {/* Logo and Title */}
-              <div                     onClick={()=>navigate('/')} className="flex -mt-1  items-center gap-3 pb-2">
+              <div    onClick={()=>navigate('/')} className="flex -mt-1  items-center gap-3 pb-2">
                 <img
                   src={Logo}
                   alt="Logo"
                   className="h-[2.2em]  cursor-pointer object-cover w-auto"
                 />
-                <h1 className="text-[#07142e] cursor-pointer text-[28px] font-sans font-semibold">
+                <h1 className={` ${isDarkMode ? 'text-white' : 'text-[#07142e]'} cursor-pointer text-[28px] font-sans font-semibold`}>
                   SocialV
                 </h1>
               </div>
-              <hr className="bg-gray-50 !w-[17.5vw] !overflow-hidden -ml-4 -mt-[17px]" />
+              <hr  className={`${isDarkMode?'border-[#101421]':'border-[F1F1F1]'}  border-t-1  w-[17.5vw] overflow-hidden -ml-4 -mt-[17px]`}/>
 
               {/* Profile Image and Name */}
               <div  onClick={()=>navigate('/profile')} className="flex cursor-pointer items-center border-b pb-6 mt-2 space-x-3">
@@ -71,9 +73,9 @@ const Drawer = () => {
                   alt="Profile"
                   className="w-12 h-12 rounded-full"
                 />
-                <div     className="cursor-pointer"                onClick={()=>navigate('/profile')}
+                <div className="cursor-pointer"   onClick={()=>navigate('/profile')}
                 >
-                  <p className="font-semibold text-[#07142e] text-[16px]">
+                  <p className={`font-semibold  ${isDarkMode ? 'text-white' :'text-[#07142e]'}  text-[16px]`}>
                     Marvin McKinney
                   </p>
                   <p className="text-sm text-[#6f7f92]">@marvin</p>
@@ -100,7 +102,7 @@ const Drawer = () => {
               </ul>
 
               {/* Bottom Actions */}
-              <div className="w-full mt-10 bg-[#F8F9FA] p-2 rounded-md flex justify-between">
+              <div className={`w-full mt-10  ${isDarkMode ?'bg-[#080D1]' :'bg-[#F8F9FA] '}  p-2 rounded-md flex justify-between`}>
                 <button className="p-1">
                   <Icon
                     icon="fluent:data-trending-32-regular"
@@ -137,7 +139,7 @@ const Drawer = () => {
                     onClick={()=>navigate('/')}
                   />
                 </div>
-                <hr className="bg-gray-50 !mt-3 !w-[4.8vw] " />
+                <hr className={`${isDarkMode?'border-[#101421]':'border-[#F1F1F1]'} border-t-1   !mt-3 !w-[4.8vw] `} />
                 <div className="">
                   <button className="mt-2">
                     <img
@@ -147,9 +149,9 @@ const Drawer = () => {
                     />
                   </button>
                 </div>
-                <hr className="bg-gray-50  !w-[6vw] -mt-2" />
+                <hr className={`${isDarkMode?'border-[#101421]':'border-[#F1F1F1]'} border-t-1 !w-[6vw] -mt-2`} />
 
-                {/* <hr className="bg-sky-950  !w-[4vw] -mt-3" /> */}
+                {/* <hr className={`${isDarkMode?'border-[#101421]':'border-[F1F1F1]'}   !w-[4vw] -mt-3`} /> */}
                 <h1 className="text-[#6f7f92] font-semibold !mt-6">Menu</h1>
 
                 
@@ -166,7 +168,7 @@ const Drawer = () => {
               
 
                 
-              <div className="w-full p-6 flex flex-col justify-between items-center !mt-20 bg-[#F8F9FA] rounded-md gap-6">
+              <div className={`w-full p-6 flex flex-col justify-between items-center !mt-20  ${isDarkMode ?'bg-[#080D1]' :'bg-[#F8F9FA] '} rounded-md gap-6`}>
                 {nav.slice(2,5).map((nav,idx)=>(
                  <button className="group p-2 rounded-md hover:bg-[#2F65B9]">
                  <Icon
