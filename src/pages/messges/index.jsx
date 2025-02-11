@@ -1,5 +1,5 @@
 import React from 'react'
-import Chats from './Chats'
+import Chats from './chat'
 import ChatPage from './chatPage'
 import { useSelector } from 'react-redux';
 
