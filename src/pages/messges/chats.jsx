@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import Avatar from "../../assets/img/Avatar.jpg";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Chats() {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("messages");
+  const isDarkMode = useSelector((state) => state.theme.darkMode);
 
   const messages = [
     {
@@ -69,22 +71,30 @@ export default function Chats() {
 
   return (
     <div className="w-full h-full">
-      <div className="p-4 flex bg-white items-center justify-between gap-4 rounded-lg">
+      <div className={`p-4 flex ${
+          isDarkMode ? "bg-[#080D1E]" : "bg-white"
+        } items-center justify-between gap-4 rounded-lg`}>
         {/* Search */}
         <input
           type="text"
           placeholder="Enter a Search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:w-auto flex-grow border px-4 py-2 rounded-lg focus:outline-none focus:ring text-[#6f7f92] bg-[#EAEFF8] focus:ring-blue-300"
+          className={`w-full sm:w-auto flex-grow border px-4 py-2 rounded-lg focus:outline-none focus:ring text-[#6f7f92]  ${
+          isDarkMode ? "bg-[#091025]" : "bg-[#EAEFF8]"
+        } focus:ring-blue-300`}
         />
-        <button className="w-full sm:w-12 h-10 flex justify-center items-center text-[#6f7f92] bg-[#EAEFF8] text-[20px] rounded-lg sm:rounded-md hover:bg-sky-100 transition">
+        <button className={`w-full sm:w-12 h-10 flex justify-center items-center text-[#6f7f92]   ${
+          isDarkMode ? "hover:bg-[#080D1E]" : "hover:bg-sky-100"
+        }text-[20px] rounded-lg sm:rounded-md transition`}>
           <Icon icon="lucide:edit" />
         </button>
       </div>
 
       {/* Tabs */}
-      <div className="w-full mt-6 p-2 rounded-lg flex justify-around items-center bg-white">
+      <div className={`w-full mt-6 p-2 rounded-lg flex justify-around items-center ${
+          isDarkMode ? "bg-[#080D1E]" : "bg-white"
+        }`}>
         <div
           onClick={() => setActiveTab("messages")}
           className={`text-[13px] flex items-center gap-2 cursor-pointer p-3 rounded-md ${
@@ -125,7 +135,7 @@ export default function Chats() {
             <div
             onClick={()=>hanldeChat(user)}
               key={user._id}
-              className="w-full  p-4 flex mt-4 items-start gap-2 justify-around rounded-lg bg-white"
+              className={`w-full  p-4 flex mt-4 items-start gap-2 justify-around rounded-lg  ${isDarkMode ? "bg-[#080D1E]" : "bg-white"}`}
             >
               <div className="flex items-center gap-2 -ml-5">
                 <div className="w-[49px] rounded-full">
@@ -136,7 +146,7 @@ export default function Chats() {
                   />
                 </div>
                 <div>
-                  <h1 className="text-[#07142e] font-medium text-[15px]">
+                  <h1 className={`${isDarkMode?'text-gray-700':'text-[#07142e]'}  font-medium text-[15px]`}>
                     {user.name}
                   </h1>
                   <h5 className="text-[#6f7f92] text-[13px]">{user.msg}</h5>
@@ -155,7 +165,7 @@ export default function Chats() {
           friends.map((friend) => (
             <div
               key={friend._id}
-              className="w-full  p-4 flex mt-4 items-center justify-between gap-2 rounded-lg bg-white"
+              className={`w-full  p-4 flex mt-4 items-center justify-between gap-2 rounded-lg  ${isDarkMode ? "bg-[#080D1E]" : "bg-white"}`}
             >
               <div className="flex items-center gap-2">
                 <div className="w-[49px] rounded-full">
@@ -166,7 +176,7 @@ export default function Chats() {
                   />
                 </div>
                 <div>
-                  <h1 className="text-[#07142e] font-medium text-[15px]">
+                  <h1 className={` ${isDarkMode?'text-gray-700':'text-[#07142e]'}  font-medium text-[15px]`}>
                     {friend.name}
                   </h1>
                 </div>
@@ -186,7 +196,7 @@ export default function Chats() {
           groups.map((group) => (
             <div
               key={group._id}
-              className="w-full  p-4 flex mt-4 items-center justify-between gap-2 rounded-lg bg-white"
+              className={`w-full  p-4 flex mt-4 items-center justify-between gap-2 rounded-lg  ${isDarkMode ? "bg-[#080D1E]" : "bg-white"}`}
             >
               <div className="flex items-center gap-2">
                 <div className="w-[49px] rounded-full">
@@ -197,7 +207,7 @@ export default function Chats() {
                   />
                 </div>
                 <div>
-                  <h1 className="text-[#07142e] font-medium text-[15px]">
+                  <h1 className={`${isDarkMode?'text-gray-700':'text-[#07142e]'}  font-medium text-[15px]`}>
                     {group.name}
                   </h1>
                 </div>

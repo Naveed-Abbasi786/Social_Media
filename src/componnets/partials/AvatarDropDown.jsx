@@ -1,10 +1,14 @@
 import { Icon } from '@iconify/react'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 export default function AvatarDropDown() {
+    const isDarkMode = useSelector((state) => state.theme.darkMode);
+  
   return (
     <div>
-       <div className="absolute top-20 w-[15vw] rounded-md bg-white shadow-md right-10">
+       <div className={`absolute top-20 w-[15vw] rounded-md ${isDarkMode ? "bg-[#080D1E]" : "bg-white"
+          }   shadow-md right-10`}>
                     <ul className="p-4">
                       <li className="w-full text-[#6f7f92] font-sans cursor-pointer justify-start items-center flex gap-2 p-2 ">
                         <Icon icon="solar:user-linear" className="text-[20px]" />

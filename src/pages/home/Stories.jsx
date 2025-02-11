@@ -7,6 +7,7 @@ import ReactModal from "react-modal";
 
 import "swiper/swiper-bundle.css";
 import { stories } from "../../constant/data";
+import { useSelector } from "react-redux";
 
 // Stories data
 
@@ -15,6 +16,7 @@ export default function Stories() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentStory, setCurrentStory] = useState(null);
   const [progress, setProgress] = useState(0);
+  const isDarkMode = useSelector((state) => state.theme.darkMode);
 
   const openModal = (story) => {
     setCurrentStory(story);
@@ -81,7 +83,9 @@ export default function Stories() {
                   alt={story.name}
                   className="w-18 h-10 absolute bottom-6 space-y-2 border rounded-lg"
                 />
-                <span className="text-sm font-medium mt-5 text-center ">
+                <span className={`text-sm font-medium mt-5 text-center ${
+                              isDarkMode ? "text-white" : "text-[#222222] "
+                            }  `}>
                   {story.name}
                 </span>
               </div>
@@ -111,10 +115,10 @@ export default function Stories() {
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         overlayClassName="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
-        className="bg-white rounded-lg w-full max-w-lg p-0 relative"
+        className={` ${isDarkMode ? "bg-[#080D1E]" : "bg-white"} rounded-lg w-full max-w-lg p-0 relative`}
       >
         {/* Linear Loading Bar */}
-        <div className="absolute top-20 left-0 w-full h-1 bg-gray-300">
+        <div className={`absolute top-20 left-0 w-full h-1  ${isDarkMode ? "bg-[#080D1E]" : "bg-gray-300"}`}>
           <div
             className="h-full bg-blue-500"
             style={{ width: `${progress}%` }}
@@ -131,7 +135,7 @@ export default function Stories() {
 
         {/* Story Content */}
         {currentStory && (
-          <div className="flex flex-col bg-white rounded-lg overflow-hidden">
+          <div className={`flex flex-col ${isDarkMode ? "bg-[#080D1E]" : "bg-white"} rounded-lg overflow-hidden`}>
             {/* Author Details */}
             <div className="flex items-center justify-start gap-2 mb-4 p-4">
               <img

@@ -5,11 +5,13 @@ import { Pagination } from "@mui/material";
 import SearchBar from "../../componnets/searchBar";
 import CoverBg from "../../assets/img/bg-banner.jpg";
 import GroupDp from "../../assets/img/groupDp.jpg";
+import { useSelector } from "react-redux";
 
 export default function Groups() {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("All Groups");
   const [sortOption, setSortOption] = useState("Last Active");
+  const isDarkMode = useSelector((state) => state.theme.darkMode);
 
   const groupsData = [
     {
@@ -102,14 +104,15 @@ export default function Groups() {
           placeholder="Search Groups..."
         />
       </div>
-      <div className="bg-white -mt-4 rounded-lg mb-10">
+      <div className={`${isDarkMode ? "bg-[#091025]" : "bg-white"
+          }  -mt-4 rounded-lg mb-10`}>
         <div className="flex flex-col sm:flex-row p-6 justify-between mt-12 items-center border-b mb-4 gap-4 sm:gap-0">
           {/* Tabs Section */}
           <div className="flex flex-nowrap items-center gap-4 w-full">
             <button
               className={`lg:px-4 flex items-center gap-2 flex-nowrap whitespace-nowrap py-2 ${
                 activeTab === "All Groups"
-                  ? "border-b-2 border-gray-900 text-gray-900"
+                  ? `border-b-2 ${isDarkMode ?'border-gray-700 text-gray-700' :'border-gray-900 text-gray-900'} `
                   : "text-gray-500"
               }`}
               onClick={() => handleTabClick("All Groups")}
@@ -123,7 +126,7 @@ export default function Groups() {
               <button
                 className={`lg:px-4 flex items-center gap-2 flex-nowrap whitespace-nowrap py-2 ${
                   activeTab === "My Groups"
-                    ? "border-b-2 border-gray-900 text-gray-900"
+                    ? `border-b-2 ${isDarkMode ?'border-gray-700 text-gray-700' :'border-gray-900 text-gray-900'} `
                     : "text-gray-500"
                 }`}
                 onClick={() => handleTabClick("My Groups")}
@@ -138,11 +141,12 @@ export default function Groups() {
 
           {/* Filter Section */}
           <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
-            <h3 className="text-[16px] whitespace-nowrap items-center sm:text-[19px] text-gray-900 font-normal">
+            <h3 className={`text-[16px] whitespace-nowrap items-center sm:text-[19px] ${isDarkMode?'text-gray-700' :'text-gray-900'}  font-normal`}>
               Show By:
             </h3>
             <select
-              className="border px-4 py-2 text-gray-500 rounded outline-none w-full sm:w-auto"
+              className={`border px-4 py-2 text-gray-500  ${isDarkMode ? "bg-[#080D1E]" : "bg-white"
+          } rounded outline-none w-full sm:w-auto`}
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
             >

@@ -5,9 +5,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Autoplay, Navigation } from "swiper/modules";
 import { icons } from "../../../constant/data";
+import { useSelector } from "react-redux";
 
 export default function SlidesMenus() {
 
+  const isDarkMode = useSelector((state) => state.theme.darkMode);
 
   const swiperRef = useRef(null);
 
@@ -38,8 +40,8 @@ export default function SlidesMenus() {
       >
         {icons.map((val, index) => (
           <SwiperSlide key={index}>
-            <div className="flex flex-col justify-center items-center p-10 bg-white  text-gray-600 rounded-sm">
-              <div className="p-4 bg-[#F8F9FA] rounded-md mb-2">
+            <div className={`flex flex-col justify-center items-center p-10    ${isDarkMode ? "bg-[#080D1E]" : "bg-white"} text-gray-600 rounded-sm`}>
+              <div className={`p-4   ${isDarkMode ? "bg-[#091025]" : "bg-[#F8F9FA]"} rounded-md mb-2`}>
               <Icon icon={val.icon} className="h-5 w-5  text-[#6f7f92]" />
               </div>
               <p className="text-sm font-medium text-[#6f7f92]">{val.name}</p>
@@ -51,7 +53,7 @@ export default function SlidesMenus() {
       <div className="absolute top-1/2 transform -translate-y-1/2 left-5 z-10">
         <button
           onClick={handlePrev}
-          className="bg-white rounded-full p-2 shadow-md hover:bg-gray-200 transition"
+          className={`rounded-full p-2 shadow-md  ${isDarkMode ? "bg-[#091025] text-gray-700 hover:bg-gray-800" : "bg-white hover:bg-gray-200"}  transition`}
         >
           &#10094;
         </button>
@@ -59,7 +61,7 @@ export default function SlidesMenus() {
       <div className="absolute top-1/2 transform -translate-y-1/2 right-5 z-10">
         <button
           onClick={handleNext}
-          className="bg-white rounded-full p-2 shadow-md hover:bg-gray-200 transition"
+          className={` rounded-full p-2 shadow-md ${isDarkMode ? "bg-[#091025] text-gray-700 hover:bg-gray-800" : "bg-white hover:bg-gray-200 "} transition`}
         >
           &#10095;
         </button>

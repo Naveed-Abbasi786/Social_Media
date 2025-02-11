@@ -293,39 +293,37 @@ export default function Post() {
 
               {/* Comment Button */}
               <button
-                className={`flex items-center group text-gray-600 ${
-                  isDarkMode ? "hover:text-blue-200 " : "hover:text-blue-500 "
-                } hover:text-blue-500 text-sm sm:text-base`}
-                onClick={() => handleComments(post)}
-              >
-                <Icon
-                  icon="arcticons:psms"
-                  className={`text-gray-700  ${
-                    isDarkMode
-                      ? "group-hover:text-blue-200 "
-                      : "group-hover:text-blue-500 "
-                  } text-[16px] sm:text-[20px]`}
-                />
-                <span className="ml-1">Comment ({post.comments})</span>
-              </button>
+  className={`flex items-center group text-gray-600 ${
+    isDarkMode ? "hover:text-blue-200" : "hover:text-blue-500"
+  } text-sm sm:text-base`}
+  onClick={() => handleComments(post)}
+>
+  <Icon
+    icon="arcticons:psms"
+    className={`text-gray-700 ${
+      isDarkMode ? "group-hover:text-blue-200" : "group-hover:text-blue-500"
+    } text-[16px] sm:text-[20px]`}
+  />
+  <span className="ml-1">Comment ({post.comments})</span>
+</button>
+
 
               {/* Share Button */}
               <button
-                onClick={() => hanldeShareShow(post)}
-                className={`flex items-center group text-gray-600 ${
-                  isDarkMode ? "hover:text-blue-200 " : "hover:text-blue-500 "
-                } hover:text-blue-500 text-sm sm:text-base`}
-              >
-                <Icon
-                  icon="mdi-light:share"
-                  className={`  ${
-                    isDarkMode
-                      ? "group-hover:text-blue-200 "
-                      : "group-hover:text-blue-500 "
-                  } text-gray-700 text-[18px] sm:text-[22px]`}
-                />
-                <span className="ml-1">Share ({post.shares})</span>
-              </button>
+  onClick={() => hanldeShareShow(post)}
+  className={`flex items-center group text-gray-600 ${
+    isDarkMode ? "hover:text-blue-200" : "hover:text-blue-500"
+  } text-sm sm:text-base`}
+>
+  <Icon
+    icon="mdi-light:share"
+    className={`text-gray-700 ${
+      isDarkMode ? "group-hover:text-blue-200" : "group-hover:text-blue-500"
+    } text-[18px] sm:text-[22px]`}
+  />
+  <span className="ml-1 group-hover:underline">Share ({post.shares})</span>
+</button>
+
             </div>
 
             {showCommentsSection === post._id && (
@@ -528,7 +526,8 @@ export default function Post() {
               {/* Close Button */}
               <button
                 onClick={closeModal}
-                className="absolute top-4 right-4  text-gray-700 rounded-full p-2 hover:bg-gray-200"
+                className={`absolute top-4 right-4  text-gray-700 rounded-full p-2 ${isDarkMode ? "hover:bg-[#080D1E]" : "hover:bg-gray-200"
+          } `}
               >
                 ✕
               </button>

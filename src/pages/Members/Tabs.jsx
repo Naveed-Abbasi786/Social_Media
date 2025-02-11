@@ -3,10 +3,12 @@ import { Icon } from "@iconify/react";
 import Avatar from "../../assets/img/Avatar.jpg";
 import { Pagination } from "@mui/material";
 import SearchBar from "../../componnets/searchBar";
+import { useSelector } from "react-redux";
 export default function Members() {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("All Members");
   const [sortOption, setSortOption] = useState("Last Active");
+  const isDarkMode = useSelector((state) => state.theme.darkMode);
 
   const friendsData = [
     {
@@ -101,14 +103,22 @@ export default function Members() {
         />
       </div>
 
-      <div className="bg-white -mt-4 rounded-lg mb-10">
+      <div
+        className={` ${
+          isDarkMode ? "bg-[#080D1E]" : "bg-white"
+        }  -mt-4 rounded-lg mb-10`}
+      >
         <div className="flex flex-col sm:flex-row p-6 justify-between mt-12 items-center border-b mb-4 gap-4 sm:gap-0">
           {/* Tabs Section */}
           <div className="flex flex-nowrap items-center gap-4  w-full ">
             <button
               className={`lg:px-4 flex items-center gap-2 flex-nowrap whitespace-nowrap  py-2 ${
                 activeTab === "All Members"
-                  ? "border-b-2 border-gray-900 text-gray-900"
+                  ? `border-b-2 ${
+                      isDarkMode
+                        ? "border-gray-700 text-gray-700"
+                        : "border-gray-900 text-gray-900"
+                    } `
                   : "text-gray-500"
               }`}
               onClick={() => handleTabClick("All Members")}
@@ -122,7 +132,11 @@ export default function Members() {
               <button
                 className={`lg:px-4 flex items-center gap-2 flex-nowrap whitespace-nowrap  py-2 ${
                   activeTab === "My Friends"
-                    ? "border-b-2 border-gray-900 text-gray-900"
+                    ? `border-b-2 ${
+                        isDarkMode
+                          ? "border-gray-700 text-gray-700"
+                          : "border-gray-900 text-gray-900"
+                      }`
                     : "text-gray-500"
                 }`}
                 onClick={() => handleTabClick("My Friends")}
@@ -136,12 +150,18 @@ export default function Members() {
           </div>
 
           {/* Filter Section */}
-          <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
-            <h3 className="text-[16px] whitespace-nowrap items-center sm:text-[19px] text-gray-900 font-normal">
+          <div className={`flex items-center gap-2 sm:gap-4 w-full sm:w-auto`}>
+            <h3
+              className={`text-[16px] whitespace-nowrap items-center sm:text-[19px] ${
+                isDarkMode ? "text-gray-700" : "text-gray-900"
+              }  font-normal`}
+            >
               Show By:
             </h3>
             <select
-              className="border px-4 py-2 text-gray-500 rounded outline-none w-full sm:w-auto"
+              className={`border  px-4 py-2 text-gray-500 ${
+                isDarkMode ? "bg-[#080D1E]" : "bg-white"
+              } rounded outline-none w-full sm:w-auto`}
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
             >
@@ -158,7 +178,9 @@ export default function Members() {
             {displayedFriends.map((friend) => (
               <li
                 key={friend.id}
-                className="flex flex-col sm:flex-row items-center bg-[#F8F9FA] mt-4 justify-between border-b py-4 px-4 rounded-lg shadow-sm"
+                className={`flex flex-col sm:flex-row items-center   ${
+                  isDarkMode ? "bg-[#080D1E]" : "bg-white"
+                }   mt-4 justify-between border-b py-4 px-4 rounded-lg shadow-sm`}
               >
                 {/* Profile Section */}
                 <div className="flex items-center w-full sm:w-auto">

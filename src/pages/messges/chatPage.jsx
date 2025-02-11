@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Icon } from "@iconify/react"; // Import Iconify
 import Avatar from "../../assets/img/Avatar.jpg";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToggleChat } from "../../store/slices/chatsToggle";
 
 const ChatPage = () => {
@@ -37,6 +37,7 @@ const ChatPage = () => {
   const [editMessage, setEditMessage] = useState(false);
   const [showOptionsReceiver, setShowOptionsReceiver] = useState(false);
   const [showOptionsSender, setShowOptionSender] = useState(false);
+  const isDarkMode = useSelector((state) => state.theme.darkMode);
 
   //   const { id } = useParams();
   //   const chat = messages.find((msg) => msg._id === parseInt(id));
@@ -74,9 +75,9 @@ const ChatPage = () => {
   };
 
   const dispatch = useDispatch();
-  const chatsToggle=()=>{
-   dispatch(ToggleChat())
-  }
+  const chatsToggle = () => {
+    dispatch(ToggleChat());
+  };
 
   // Reverse messages for latest at the bottom
   const sortedMessages = [...messages].reverse();
@@ -95,11 +96,26 @@ const ChatPage = () => {
       )}
     </div> */}
       {/* Header */}
-      <div className="flex justify-between items-center -mt-1 py-5 px-5 bg-white text-white rounded-t-lg">
+      <div
+        className={`flex justify-between items-center -mt-1 py-5 px-5  ${
+          isDarkMode ? "bg-[#080D1E]" : "bg-white"
+        } text-white rounded-t-lg`}
+      >
         <div className="flex items-center gap-2">
-          <Icon onClick={chatsToggle} icon='lsicon:left-outline'  width={20} className="text-black"/>
+          <Icon
+            onClick={chatsToggle}
+            icon="lsicon:left-outline"
+            width={20}
+            className="text-black md:flex hidden"
+          />
           <img src={Avatar} alt="" className="rounded-full w-[30px]" />
-          <h1 className="font-semibold text-lg text-[#07142e]">Freya Davies</h1>
+          <h1
+            className={`font-semibold text-lg ${
+              isDarkMode ? "text-gray-700" : "text-[#07142e]"
+            } `}
+          >
+            Freya Davies
+          </h1>
         </div>
         <div className="flex it ems-center text-gray-800 gap-2">
           <Icon icon="mdi:phone-outline" width={25} />
@@ -109,16 +125,28 @@ const ChatPage = () => {
 
       {/* Messages */}
       <>
-        <div className="flex-1 bg-white p-2 overflow-y-auto mt-6 space-y-4">
+        <div
+          className={`flex-1  ${
+            isDarkMode ? "bg-[#080D1E]" : "bg-white"
+          } p-2 overflow-y-auto mt-6 space-y-4`}
+        >
           <h1 className="text-center text-gray-600 pb-2">
             Start a Conversation
           </h1>
           <div className="w-full h-[30px] flex justify-center">
-            <h5 className="px-2 py-1 w-[20%] rounded-lg text-center text-[12px] bg-[#ECF1F9] text-[#2f65b9]">
+            <h5
+              className={`px-2 py-1 w-[20%] rounded-lg text-center text-[12px]  ${
+                isDarkMode ? "bg-[#091025]" : "bg-[#ECF1F9]"
+              }  text-[#2f65b9]`}
+            >
               November 17
             </h5>
           </div>
-          <hr className="bg-gray-900 w-full !-mt-3" />
+          <hr
+            className={` ${
+              isDarkMode ? "border-gray-700" : "border-gray-300"
+            } w-full !-mt-3`}
+          />
 
           {/* Messages */}
           {sortedMessages.map((msg) => (
@@ -151,7 +179,11 @@ const ChatPage = () => {
               {showOptionsSender === msg.id && (
                 <>
                   {msg.sender == "You" && (
-                    <div className="absolute top-10 left-40 w-[30%] bg-white shadow-lg rounded-lg z-10 p-2">
+                    <div
+                      className={`absolute top-10 left-40 w-[30%]   ${
+                        isDarkMode ? "bg-[#091025]" : "bg-white"
+                      } shadow-lg rounded-lg z-10 p-2`}
+                    >
                       <div className="flex text-gray-700 justify-start gap-2 text-[14px]  items-center">
                         <Icon icon="line-md:edit" width={20} />
                         <span>Edit</span>
@@ -168,7 +200,11 @@ const ChatPage = () => {
               {showOptionsReceiver === msg.id && (
                 <>
                   {msg.sender !== "You" && (
-                    <div className="absolute top-10 left-40 w-[30%] bg-white shadow-lg rounded-lg z-10 p-2">
+                    <div
+                      className={`absolute top-10 left-40 w-[30%]  ${
+                        isDarkMode ? "bg-[#091025]" : "bg-white"
+                      } shadow-lg rounded-lg z-10 p-2`}
+                    >
                       <div className="flex text-gray-700 justify-start gap-2 text-[14px]  items-center">
                         <Icon icon="line-md:edit" width={20} />
                         <span>Reply</span>
@@ -186,7 +222,9 @@ const ChatPage = () => {
                 className={`flex flex-col p-2 rounded-lg shadow-md ${
                   msg.sender === "You"
                     ? "bg-[#3366B9] text-white"
-                    : "bg-[#F8F9FA] text-[#6f7f92]"
+                    : `${
+                        isDarkMode ? "bg-[#091025]" : "bg-[#F8F9FA]"
+                      }  text-[#6f7f92]`
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -220,11 +258,15 @@ const ChatPage = () => {
       </>
 
       {/* Input Section */}
-      <div className="flex items-center  gap-2 justify-between -mt-1 bg-white   p-3 rounded-lg border-t">
+      <div
+        className={`flex items-center  gap-2 justify-between -mt-1   ${
+          isDarkMode ? "bg-[#091025]" : "bg-white"
+        }  p-3 rounded-lg border-t`}
+      >
         <div className="text-gray-800">
           <input
             type="file"
-            className="hidden"
+            className={`hidden`}
             id="file-input"
             onChange={(e) => console.log(e.target.files[0])}
           />
@@ -238,7 +280,9 @@ const ChatPage = () => {
           placeholder="Write your message..."
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          className="w-full p-2  rounded-lg border-none outline-none"
+          className={`w-full p-2   ${
+            isDarkMode ? "bg-[#091025] text-gray-700" : "bg-white text-gray-900"
+          } rounded-lg border-none outline-none`}
         />
         <button
           onClick={handleSend}

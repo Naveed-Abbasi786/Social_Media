@@ -130,7 +130,8 @@ export default function Navbar() {
                 COMUNITY
                 <Icon icon="ri:arrow-down-s-line" width="24" height="24" />
                 <div
-                  className="w-[40vw] z-50  bg-white absolute top-[45px] left-0 mt-2  shadow-md text-[#222] font-sans text-[13px] transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out"
+                  className={`w-[40vw] z-50  ${isDarkMode ? "bg-[#080D1E]" : "bg-white"
+          }  absolute top-[45px] left-0 mt-2  shadow-md text-[#222] font-sans text-[13px] transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out`}
                   style={{
                     display: isShopDropdownOpen ? "flex" : "none",
                   }}
@@ -139,7 +140,9 @@ export default function Navbar() {
                     {communityData.map((category, index) => (
                       <div key={index} className="flex-1 w-[15vw]">
                         {/* Category Header */}
-                        <h3 className="font-semibold text-[16px] font-sans mb-2 uppercase  text-sans leading-[27px]  text-[#07142e]">
+                        <h3 className={`font-semibold text-[16px] font-sans mb-2 uppercase  text-sans leading-[27px] ${
+                              isDarkMode ? "text-white" : "text-[#07142e]"
+                            }  `}>
                           {category.category}
                         </h3>
 
@@ -184,16 +187,18 @@ export default function Navbar() {
                     flexDirection: "column",
                   }}
                 >
-                  <ul>
+                  <ul>  
                     <li
-                      className="relative blog font-sans hover:text-[#2f65b9] border-b py-3 px-3 text-[#6f7f92] cursor-posans flex items-center justify-between"
+                      className={`relative blog  ${isDarkMode ? "bg-[#080D1E]" : "bg-white"
+          } font-sans hover:text-[#2f65b9]  py-3 px-3 text-[#6f7f92] cursor-posans flex items-center justify-between`}
                       onMouseEnter={openNested}
                       onMouseLeave={closeNested}
                     >
                       Blog Layout
                       <i className="text-[16px]">&#x2192;</i>
                       <div
-                        className="absolute left-full top-0 ml-2 w-[15vw] bg-white shadow-md"
+                        className={`absolute left-full top-0 ml-2 w-[15vw]  ${isDarkMode ? "bg-[#080D1E]" : "bg-white"
+          } shadow-md`}
                         style={{
                           display: isNestedOpen ? "block" : "none",
                           opacity: isNestedOpen ? 1 : 0,
