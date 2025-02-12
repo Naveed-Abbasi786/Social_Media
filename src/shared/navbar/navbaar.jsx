@@ -231,17 +231,17 @@ export default function Navbar() {
 
         {/* Md Display */}
         <div
-          onClick={handleThemeToggle}
           className="flex lg:hidden  items-center gap-4 mr-4"
         >
           <Icon
+          onClick={()=>handleThemeToggle()}
             icon={`${isDarkMode ? "mi:moon" : "uil:brightness"}`}
-            className="text-[22px] text-[#6f7f92]"
+            className="text-[22px] text-[#6f7f92] cursor-pointer"
           />
           <Icon
             icon="bitcoin-icons:menu-outline"
             onClick={toggleSidebar}
-            className="text-[45px] text-[#6f7f92]  lg:hidden  flex"
+            className="text-[45px] text-[#6f7f92]  lg:hidden cursor-pointer flex"
           />
         </div>
 
@@ -289,14 +289,7 @@ export default function Navbar() {
         {navbarBtnsIcon.slice(1, 6).map((nav, idx) => (
           <div key={idx} className="relative">
             <Icon
-              icon={
-                idx === 0
-                  ? isDarkMode
-                    ? "mi:moon"
-                    : "uil:brightness"
-                  : nav.icon
-              }
-              onClick={idx === 0 ? handleThemeToggle : undefined}
+              icon={nav.icon}
               className="text-[22px] text-[#6f7f92] cursor-pointer"
             />
             {nav?.quanity && (
